@@ -20,3 +20,18 @@ defineProps({ company: Object })
     </div>
   </section>
 </template>
+
+<style scoped>
+.contact-section { background: var(--accent); padding: 110px 0; }
+.contact-grid { display:grid; grid-template-columns: 1.15fr .85fr; gap:100px; align-items:start; }
+.contact-grid h2 { max-width: 760px; }
+.contact-card { padding-top: 42px; }
+.contact-card > p { max-width:450px; line-height:1.7; margin:0 0 28px; }
+.contact-link { display:block; font-family:'Manrope'; font-size:clamp(24px,3vw,38px); font-weight:700; letter-spacing:-.03em; margin-bottom:12px; }
+.locations { display:flex; flex-direction:column; gap:7px; margin-top:30px; font-size:13px; }
+
+@media (max-width: 900px) {
+  .contact-grid { grid-template-columns:1fr; gap:38px; }
+  .contact-card { padding-top:0; }
+}
+</style>

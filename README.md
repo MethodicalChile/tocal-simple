@@ -24,6 +24,7 @@ La mayoría del contenido se encuentra en:
 `src/data/site.js`
 
 Desde ahí se pueden modificar:
+
 - Datos de empresa
 - Servicios
 - Proyectos

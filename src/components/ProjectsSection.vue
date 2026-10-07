@@ -28,3 +28,29 @@ defineProps({ projects: Array })
     </div>
   </section>
 </template>
+
+<style scoped>
+.projects-section { background:#ebe8e0; }
+.projects-grid { display:grid; grid-template-columns: 1.2fr .8fr; gap:22px; }
+.project-card:first-child { grid-row: span 2; }
+.project-image-wrap { position:relative; overflow:hidden; min-height:330px; background:#d7d4cc; }
+.project-card:first-child .project-image-wrap { height: 690px; }
+.project-image { height:100%; object-fit:cover; position:absolute; inset:0; transition:transform .55s ease; }
+.project-card:hover .project-image { transform:scale(1.035); }
+.project-category { position:absolute; top:18px; left:18px; padding:8px 11px; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; background:rgba(255,255,255,.92); }
+.project-meta { display:flex; align-items:center; justify-content:space-between; gap:20px; padding:18px 0 8px; }
+.project-meta h3 { font-size:20px; margin:0; }
+.project-meta p { margin:0; color:#727987; font-size:13px; }
+
+@media (max-width: 900px) {
+  .section-heading { grid-template-columns:1fr; gap:38px; }
+  .projects-grid { grid-template-columns:1fr; }
+  .project-card:first-child { grid-row:auto; }
+  .project-card:first-child .project-image-wrap { height:440px; }
+  .project-image-wrap { height:360px; }
+}
+@media (max-width: 560px) {
+  .project-image-wrap, .project-card:first-child .project-image-wrap { height:320px; }
+  .project-meta { align-items:flex-start; flex-direction:column; gap:4px; }
+}
+</style>
