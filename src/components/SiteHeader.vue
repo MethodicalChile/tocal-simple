@@ -8,8 +8,7 @@ const close = () => (open.value = false)
 <template>
   <header class="site-header">
     <a class="brand" href="#inicio" aria-label="Tocal, inicio">
-      <span class="brand-mark">T</span>
-      <span class="brand-name">TOCAL</span>
+      <img src="/images/logo-tocal-blanco.png" alt="Tocal" class="brand-image" />
     </a>
 
     <button class="menu-button" type="button" aria-label="Abrir menú" @click="open = !open">
@@ -36,12 +35,12 @@ const close = () => (open.value = false)
   justify-content: space-between;
   padding: 0 max(24px, calc((100vw - var(--max)) / 2));
   color: white;
-  background: linear-gradient(to bottom, rgba(11,16,24,.72), rgba(11,16,24,0));
+  background: linear-gradient(to bottom, rgba(11, 16, 24, 0.95), rgba(11, 16, 24, 0.7));
 }
-.brand { display: flex; align-items: center; gap: 12px; font-weight: 800; letter-spacing: .08em; }
-.brand-mark {
-  width: 34px; height: 34px; display: grid; place-items: center;
-  background: var(--accent); color: var(--fg); font-family: 'Manrope';
+.brand { display: flex; align-items: center; gap: 12px; }
+.brand-image {
+  height: 50px;
+  width: auto;
 }
 .nav { display: flex; align-items: center; gap: 34px; font-size: 14px; }
 .nav a { opacity: .88; transition: opacity .2s; }
