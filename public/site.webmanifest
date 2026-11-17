@@ -1,0 +1,21 @@
+{
+  "name": "TOCAL | Constructora Tocal Ltda.",
+  "short_name": "TOCAL",
+  "description": "Proyectos de construcción, obras civiles e infraestructura en combustibles, plantas industriales y centros comerciales.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#10161f",
+  "theme_color": "#f26b21",
+  "icons": [
+    {
+      "src": "/images/logo-marca.png",
+      "sizes": "200x200",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/logo-tocal-blanco.png",
+      "sizes": "200x200",
+      "type": "image/png"
+    }
+  ]
+}
