@@ -1,27 +1,24 @@
 export const companyData = {
   name: 'TOCAL',
   legalName: 'Constructora Tocal Ltda.',
-  isProvisionalNotice: {
-    es: 'Contenido institucional referencial. Los antecedentes históricos específicos se actualizarán con la información oficial definitiva de TOCAL.',
-    en: 'Referential corporate content. Specific historical records will be updated with official information provided by TOCAL.',
-  },
+  rut: '76.022.955-5',
   hero: {
     eyebrow: {
-      es: 'Construcción · Obras Civiles · Infraestructura',
-      en: 'Construction · Civil Works · Infrastructure',
+      es: 'Desde 2008 · +125.000 m² Construidos · +40 Proyectos en Chile',
+      en: 'Since 2008 · +125,000 m² Built · +40 Projects in Chile',
     },
     title: {
-      es: 'Soluciones constructivas e infraestructura para proyectos de alta exigencia.',
-      en: 'Construction and infrastructure solutions for high-demand projects.',
+      es: 'Soluciones constructivas e infraestructura industrial de alto estándar.',
+      en: 'High-standard construction and industrial infrastructure solutions.',
     },
     description: {
-      es: 'En TOCAL desarrollamos proyectos de construcción e infraestructura enfocados en combustibles, plantas industriales y centros comerciales, priorizando la seguridad, la calidad técnica y el cumplimiento en terreno.',
-      en: 'At TOCAL we deliver construction and infrastructure projects focused on fuels, industrial plants, and shopping centers, prioritizing safety, technical quality, and on-site compliance.',
+      es: 'En Constructora TOCAL nos destacamos en el desarrollo de proyectos industriales, plantas de proceso, bodegas, estaciones de servicio y equipamiento comercial, garantizando calidad, seguridad y estricto cumplimiento de los plazos comprometidos.',
+      en: 'At TOCAL Construction we excel in executing industrial projects, processing plants, warehouses, service stations, and commercial facilities, guaranteeing quality, safety, and strict adherence to committed deadlines.',
     },
     image: '/images/company/hero-main.webp',
     imageAlt: {
-      es: 'Ilustración arquitectónica de infraestructura corporativa e industrial de TOCAL',
-      en: 'Architectural illustration of TOCAL corporate and industrial infrastructure',
+      es: 'Vista aérea de planta industrial ejecutada por Constructora TOCAL',
+      en: 'Aerial view of an industrial plant built by TOCAL Construction',
     },
   },
   about: {
@@ -30,54 +27,88 @@ export const companyData = {
       en: 'About Us',
     },
     title: {
-      es: 'Compromiso técnico y gestión rigurosa en cada etapa constructiva.',
-      en: 'Technical commitment and rigorous management at every construction stage.',
+      es: 'Más de 15 años siendo un aliado estratégico en proyectos industriales y comerciales.',
+      en: 'Over 15 years as a strategic ally in industrial and commercial projects.',
     },
-    overview: [
+    stats: [
       {
-        es: 'TOCAL (Constructora Tocal Ltda.) es una empresa dedicada al desarrollo y ejecución de proyectos de construcción, obras civiles e infraestructura, con especial foco en instalaciones de combustibles, plantas industriales y centros comerciales.',
-        en: 'TOCAL (Constructora Tocal Ltda.) is a company dedicated to developing and executing construction, civil works, and infrastructure projects, with a primary focus on fuel facilities, industrial plants, and shopping centers.',
+        id: 'founded',
+        value: '2008',
+        label: {
+          es: 'Año de fundación',
+          en: 'Year founded',
+        },
       },
       {
-        es: 'Abordamos cada obra mediante una coordinación cercana entre planificación técnica, control operacional y ejecución en terreno, adaptándonos a los estándares de seguridad y operación continua que requieren nuestros mandantes.',
-        en: 'We approach every project through close coordination between technical planning, operational control, and field execution, adapting to the safety and continuous operation standards required by our clients.',
+        id: 'experience',
+        value: '+15',
+        label: {
+          es: 'Años de trayectoria',
+          en: 'Years of experience',
+        },
+      },
+      {
+        id: 'surface',
+        value: '+125.000 m²',
+        label: {
+          es: 'Superficie construida',
+          en: 'Built surface area',
+        },
+      },
+      {
+        id: 'projects',
+        value: '+40',
+        label: {
+          es: 'Proyectos ejecutados en el país',
+          en: 'Projects executed nationwide',
+        },
+      },
+    ],
+    overview: [
+      {
+        es: 'Constructora TOCAL nació en 2008 con el propósito de desarrollar proyectos industriales de manera eficiente, garantizando altos estándares de calidad y seguridad. A lo largo de estos más de 15 años, nos hemos consolidado como un aliado estratégico para nuestros clientes, destacando por nuestro firme compromiso con el cumplimiento de los plazos.',
+        en: 'TOCAL Construction was born in 2008 with the purpose of developing industrial projects efficiently, guaranteeing high quality and safety standards. Throughout these 15+ years, we have established ourselves as a strategic ally for our clients, standing out for our strong commitment to meeting deadlines.',
+      },
+      {
+        es: 'Con más de 125.000 m² construidos y más de 40 proyectos industriales ejecutados a lo largo del país —incluyendo plantas de proceso, plantas de packing, bodegas, estaciones de servicio y equipamiento comercial—, continuamos impulsando el crecimiento del sector con soluciones innovadoras, funcionales y eficientes.',
+        en: 'With more than 125,000 m² built and over 40 industrial projects executed across the country—including processing plants, packing facilities, warehouses, gas stations, and commercial equipment—we continue to drive sector growth with innovative, functional, and efficient solutions.',
       },
     ],
     history: {
       title: {
-        es: 'Historia y trayectoria',
-        en: 'History & Track Record',
+        es: 'Nuestra trayectoria',
+        en: 'Our Track Record',
       },
-      isProvisional: true,
+      isProvisional: false,
       badge: {
-        es: 'Antecedentes en actualización',
-        en: 'Background being updated',
+        es: 'Desde 2008',
+        en: 'Since 2008',
       },
       text: {
-        es: 'La trayectoria de TOCAL se ha consolidado en torno a la ejecución responsable de obras de infraestructura para sectores estratégicos. (Espacio preparado para incorporar la reseña histórica oficial, hitos corporativos y antecedentes cronológicos entregados por TOCAL).',
-        en: 'TOCAL’s trajectory has been built around the responsible execution of infrastructure works for strategic sectors. (Section prepared to incorporate the official historical review, corporate milestones, and chronological background provided by TOCAL).',
+        es: 'Fundada en 2008, TOCAL ha ejecutado más de 40 obras de gran envergadura en diversas regiones de Chile para mandantes líderes en agroindustria, alimentos, energía, combustibles, retail e instituciones públicas.',
+        en: 'Founded in 2008, TOCAL has executed more than 40 major projects across Chile for leading clients in agribusiness, food processing, energy, fuels, retail, and public institutions.',
       },
     },
     mission: {
       title: {
-        es: 'Misión',
-        en: 'Mission',
+        es: 'Nuestro trabajo y enfoque',
+        en: 'Our Work & Focus',
       },
-      isProvisional: true,
+      isProvisional: false,
       text: {
-        es: 'Ejecutar proyectos de construcción e infraestructura en las áreas de combustibles, plantas industriales y centros comerciales con altos estándares de seguridad, calidad y cumplimiento, aportando soluciones confiables para la operación y crecimiento de nuestros clientes. (Texto institucional provisional sujeto a validación final del cliente).',
-        en: 'To execute construction and infrastructure projects in the areas of fuels, industrial plants, and shopping centers with high standards of safety, quality, and compliance, delivering reliable solutions for our clients’ operations and growth. (Provisional corporate statement subject to final client validation).',
+        es: 'Ofrecer soluciones constructivas que se adaptan a las necesidades de cada mandante en plantas de procesamiento, bodegas, estaciones de servicio y equipamiento comercial, enfocándonos en la calidad, la seguridad operacional y la eficiencia para asegurar la entrega dentro de los plazos comprometidos.',
+        en: 'To deliver construction solutions tailored to each client’s needs across processing plants, warehouses, service stations, and commercial facilities, focusing on quality, operational safety, and efficiency to ensure delivery within committed deadlines.',
       },
     },
     vision: {
       title: {
-        es: 'Visión',
-        en: 'Vision',
+        es: 'Nuestro compromiso',
+        en: 'Our Commitment',
       },
-      isProvisional: true,
+      isProvisional: false,
       text: {
-        es: 'Ser un referente confiable en construcción e infraestructura especializada, reconocido por su seriedad técnica, excelencia operacional en terreno y relaciones de largo plazo con cada mandante. (Texto institucional provisional sujeto a validación final del cliente).',
-        en: 'To be a trusted benchmark in specialized construction and infrastructure, recognized for technical rigor, operational excellence in the field, and long-term relationships with every client. (Provisional corporate statement subject to final client validation).',
+        es: 'Construir espacios funcionales y de alto estándar técnico que potencien el desarrollo y crecimiento continuo de las empresas en Chile, consolidando relaciones de confianza de largo plazo.',
+        en: 'To build functional, high-standard spaces that enhance the development and continuous growth of companies in Chile, consolidating long-term relationships of trust.',
       },
     },
     values: [
@@ -95,34 +126,34 @@ export const companyData = {
       {
         id: 'quality',
         title: {
-          es: 'Calidad constructiva',
-          en: 'Construction Quality',
+          es: 'Calidad y eficiencia',
+          en: 'Quality & Efficiency',
         },
         description: {
-          es: 'Rigurosidad técnica, control de procesos y apego a las especificaciones de cada proyecto.',
-          en: 'Technical rigor, process control, and strict adherence to project specifications.',
+          es: 'Rigurosidad técnica, control de procesos y soluciones eficientes adaptadas a los requerimientos operativos de cada industria.',
+          en: 'Technical rigor, process control, and efficient solutions adapted to the operational requirements of each industry.',
         },
       },
       {
         id: 'compliance',
         title: {
-          es: 'Cumplimiento y seriedad',
-          en: 'Compliance & Reliability',
+          es: 'Cumplimiento de plazos',
+          en: 'Deadline Compliance',
         },
         description: {
-          es: 'Planificación realista, control de plazos y comunicación transparente con el cliente en todas las etapas.',
-          en: 'Realistic planning, schedule control, and transparent communication with the client across all stages.',
+          es: 'Firme compromiso con los cronogramas pactados, planificación realista y coordinación estrecha con cada mandante.',
+          en: 'Strong commitment to agreed schedules, realistic planning, and close coordination with every client.',
         },
       },
       {
         id: 'field-response',
         title: {
-          es: 'Capacidad en terreno',
-          en: 'Field Responsiveness',
+          es: 'Cobertura nacional',
+          en: 'Nationwide Execution',
         },
         description: {
-          es: 'Equipos presentes y resolutivos para coordinar especialidades y responder oportunamente a los desafíos de obra.',
-          en: 'Present, decisive teams to coordinate disciplines and respond promptly to on-site challenges.',
+          es: 'Con oficinas en Santiago y Linares, desplegamos equipos técnicos en terreno desde Coquimbo hasta la zona centro-sur de Chile.',
+          en: 'With offices in Santiago and Linares, we deploy technical field teams from Coquimbo across central and southern Chile.',
         },
       },
     ],
@@ -130,25 +161,58 @@ export const companyData = {
       {
         src: '/images/company/about-main.webp',
         alt: {
-          es: 'Imagen institucional de referencia: gestión y coordinación de obras en terreno (provisional)',
-          en: 'Referential corporate image: on-site construction management and coordination (provisional)',
+          es: 'Planta de procesamiento Avomex S.A. en Quillota ejecutada por TOCAL',
+          en: 'Avomex S.A. processing plant in Quillota built by TOCAL',
         },
         caption: {
-          es: 'Gestión técnica y supervisión directa en obra · Fotografía institucional provisional',
-          en: 'Technical management and direct site supervision · Provisional corporate image',
+          es: 'Planta de Procesamiento Avomex S.A. · Quillota (7.800 m² construidos y 10.000 m² obras exteriores)',
+          en: 'Avomex S.A. Processing Plant · Quillota (7,800 m² built and 10,000 m² exterior works)',
         },
       },
       {
         src: '/images/company/about-secondary.webp',
         alt: {
-          es: 'Imagen institucional de referencia: estándares de seguridad y calidad constructiva (provisional)',
-          en: 'Referential corporate image: safety standards and construction quality (provisional)',
+          es: 'Estación de servicio Copec Chicureo ejecutada por TOCAL',
+          en: 'Copec Chicureo service station built by TOCAL',
         },
         caption: {
-          es: 'Estándares de seguridad y control de calidad · Fotografía institucional provisional',
-          en: 'Safety standards and quality control · Provisional corporate image',
+          es: 'Estación de Servicio Copec Chicureo · Colina (Infraestructura de combustibles y obras civiles)',
+          en: 'Copec Chicureo Service Station · Colina (Fuel infrastructure and civil works)',
         },
       },
     ],
+    clients: {
+      eyebrow: {
+        es: 'Confianza comprobada',
+        en: 'Proven Trust',
+      },
+      title: {
+        es: 'Nuestros clientes',
+        en: 'Our Clients',
+      },
+      subtitle: {
+        es: 'Empresas e instituciones líderes que han confiado el desarrollo de su infraestructura a Constructora TOCAL.',
+        en: 'Leading companies and institutions that have entrusted their infrastructure development to TOCAL Construction.',
+      },
+      image: '/images/company/clients.webp',
+      imageAlt: {
+        es: 'Clientes de TOCAL: Casa de Moneda de Chile, Bosch, DRS, Copec, Sopraval, Tucapel, La Araucana, Coagra, Guallarauco, Poch, Enex Shell y Ranco Cherries',
+        en: 'TOCAL Clients: Casa de Moneda de Chile, Bosch, DRS, Copec, Sopraval, Tucapel, La Araucana, Coagra, Guallarauco, Poch, Enex Shell, and Ranco Cherries',
+      },
+      list: [
+        'Copec S.A.',
+        'Enex / Shell',
+        'Tucapel S.A.',
+        'Sopraval S.A.',
+        'Ranco Cherries',
+        'Avomex S.A.',
+        'Casa de Moneda de Chile',
+        'Bosch',
+        'Guallarauco',
+        'Coagra',
+        'La Araucana',
+        'DRS Ingeniería y Gestión',
+      ],
+    },
   },
 }

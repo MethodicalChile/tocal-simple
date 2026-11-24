@@ -73,21 +73,22 @@ const whatsappUrl = computed(() => getWhatsappUrl(language.value))
             </div>
           </div>
 
-          <!-- Teléfono de oficina o Dirección (solo si se configuran en .env) -->
-          <div v-if="siteConfig.officePhone || siteConfig.address" class="channel-card">
-            <template v-if="siteConfig.officePhone">
-              <span class="channel-card__label">{{ t('contact.officePhoneLabel') }}</span>
-              <a
-                :href="`tel:${siteConfig.officePhone.replace(/\s+/g, '')}`"
-                class="channel-card__primary-link"
+          <!-- Oficinas Santiago y Linares -->
+          <div v-if="siteConfig.offices?.length" class="channel-card">
+            <span class="channel-card__label">{{ t('contact.officesTitle') }}</span>
+            <div class="office-branches">
+              <div
+                v-for="office in siteConfig.offices"
+                :key="office.id"
+                class="office-branch"
               >
-                {{ siteConfig.officePhone }}
-              </a>
-            </template>
-            <template v-if="siteConfig.address">
-              <span class="channel-card__label">{{ t('contact.addressLabel') }}</span>
-              <p class="channel-card__address">{{ siteConfig.address }}</p>
-            </template>
+                <strong class="office-branch__city">{{ office.city }}</strong>
+                <p class="office-branch__address">{{ office.address }}</p>
+                <a :href="`tel:${office.telHref}`" class="office-branch__phone">
+                  📞 {{ office.phone }}
+                </a>
+              </div>
+            </div>
           </div>
 
           <!-- Áreas de especialidad -->
@@ -182,6 +183,46 @@ const whatsappUrl = computed(() => getWhatsappUrl(language.value))
 
 .channel-card__cta-wrap {
   margin-top: 10px;
+}
+
+.office-branches {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 6px;
+}
+
+.office-branch {
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.office-branch:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.office-branch__city {
+  display: block;
+  font-size: 15px;
+  color: var(--accent);
+  margin-bottom: 3px;
+}
+
+.office-branch__address {
+  margin: 0 0 4px;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.84);
+}
+
+.office-branch__phone {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--white);
+}
+
+.office-branch__phone:hover {
+  color: var(--accent);
 }
 
 .contact-specialties-box {

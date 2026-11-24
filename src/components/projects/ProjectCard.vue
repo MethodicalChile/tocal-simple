@@ -22,6 +22,10 @@ const cardCoverSrc = computed(() => {
   return typeof first === 'string' ? first : first.src || ''
 })
 
+const hasVideo = computed(
+  () => Array.isArray(props.project.videos) && props.project.videos.length > 0
+)
+
 function handleOpen() {
   emit('select', props.project, triggerButtonRef.value)
 }
@@ -42,7 +46,13 @@ function handleOpen() {
         <span class="project-card__category">
           {{ t(`categories.${project.category}`) }}
         </span>
-        <span v-if="project.isDemo && siteConfig.showProvisionalBadges" class="project-card__demo-badge">
+        <span v-if="hasVideo" class="project-card__video-badge">
+          ▶ {{ t('projects.videoBadge') }}
+        </span>
+        <span
+          v-else-if="project.isDemo && siteConfig.showProvisionalBadges"
+          class="project-card__demo-badge"
+        >
           {{ t('projects.demoBadge') }}
         </span>
       </div>
@@ -52,6 +62,15 @@ function handleOpen() {
     </div>
 
     <div class="project-card__body">
+      <div v-if="project.location || project.builtSurface" class="project-card__meta">
+        <span v-if="project.location" class="project-card__meta-item">
+          📍 {{ project.location }}
+        </span>
+        <span v-if="project.builtSurface" class="project-card__meta-surface">
+          {{ project.builtSurface }}
+        </span>
+      </div>
+
       <h3 class="project-card__title">{{ localize(project.title) }}</h3>
       <p class="project-card__excerpt">{{ localize(project.shortDescription) }}</p>
 
@@ -134,6 +153,18 @@ function handleOpen() {
   border-left: 3px solid var(--accent);
 }
 
+.project-card__video-badge {
+  padding: 5px 10px;
+  border-radius: var(--radius-sm);
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  background: var(--accent);
+  color: #111827;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+}
+
 .project-card__demo-badge {
   padding: 4px 8px;
   border-radius: var(--radius-sm);
@@ -161,7 +192,31 @@ function handleOpen() {
   display: flex;
   flex-direction: column;
   flex: 1;
-  padding: 22px 24px 24px;
+  padding: 20px 24px 24px;
+}
+
+.project-card__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 10px;
+  font-size: 12px;
+  color: var(--fg-muted);
+}
+
+.project-card__meta-item {
+  font-weight: 600;
+}
+
+.project-card__meta-surface {
+  padding: 2px 8px;
+  border-radius: 3px;
+  background: var(--canvas);
+  font-weight: 700;
+  color: var(--fg);
+  font-size: 11px;
 }
 
 .project-card__title {

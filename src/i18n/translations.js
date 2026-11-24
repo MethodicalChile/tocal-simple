@@ -3,7 +3,7 @@ export const translations = {
     meta: {
       title: 'TOCAL | Construcción, Obras Civiles e Infraestructura',
       description:
-        'TOCAL (Constructora Tocal Ltda.) — Proyectos de construcción e infraestructura en combustibles, plantas industriales y centros comerciales.',
+        'TOCAL (Constructora Tocal Ltda.) — Más de 15 años desarrollando proyectos de construcción e infraestructura en combustibles, plantas industriales y centros comerciales en Chile.',
     },
     nav: {
       skipToContent: 'Saltar al contenido principal',
@@ -33,8 +33,8 @@ export const translations = {
       featuredLabel: 'Portafolio destacado',
       featuredTitle: 'Proyectos destacados',
       featuredSubtitle:
-        'Selección demostrativa de nuestras principales líneas de actuación en infraestructura.',
-      viewAllProjects: 'Explorar todos los proyectos',
+        'Obras representativas ejecutadas por TOCAL en plantas industriales, estaciones de servicio y centros comerciales.',
+      viewAllProjects: 'Explorar los 22 proyectos',
       ctaBannerEyebrow: '¿Tienes un proyecto en evaluación?',
       ctaBannerTitle: 'Coordinemos una reunión técnica con nuestro equipo.',
       ctaBannerText:
@@ -58,7 +58,7 @@ export const translations = {
       subtitle:
         'Nos especializamos en tres áreas principales de construcción e infraestructura, priorizando la seguridad operacional, el control de calidad y el cumplimiento de plazos.',
       scopeTitle: 'Líneas de trabajo generales',
-      relatedProjectsTitle: 'Proyectos relacionados',
+      relatedProjectsTitle: 'Proyectos ejecutados en el área',
       viewCategoryProjects: 'Filtrar galería por esta área',
       inquireService: 'Consultar por este servicio',
     },
@@ -69,23 +69,24 @@ export const translations = {
       'shopping-centers': 'Centros comerciales',
     },
     projects: {
-      eyebrow: 'Galería de proyectos',
+      eyebrow: 'Portafolio de obras ejecutadas',
       title: 'Proyectos e infraestructura.',
       subtitle:
-        'Selecciona una categoría para filtrar los proyectos o haz clic en cualquier tarjeta para inspeccionar su ficha técnica y galería fotográfica.',
+        'Explora nuestras obras ejecutadas en plantas de proceso, bodegas, estaciones de servicio y equipamiento comercial e institucional a lo largo de Chile.',
       demoNotice:
-        'Nota: Los proyectos exhibidos actualmente son fichas demostrativas de referencia. La estructura de datos está lista para cargar las obras y fotografías oficiales de TOCAL.',
+        'Nota: Los proyectos exhibidos actualmente son fichas demostrativas de referencia.',
       demoBadge: 'Ficha demostrativa',
+      videoBadge: 'Video Dron',
       filterAria: 'Filtrar proyectos por categoría',
-      searchPlaceholder: 'Buscar proyecto por nombre, tipo de obra o palabra clave...',
+      searchPlaceholder: 'Buscar por cliente, ciudad, nombre o tipo de obra...',
       searchAria: 'Buscar proyectos',
       clearSearch: 'Limpiar búsqueda',
       viewProject: 'Ver proyecto',
       viewProjectAria: 'Ver detalles del proyecto {title}',
       photosCount: '{count} foto | {count} fotos',
-      emptyCategoryTitle: 'No hay proyectos disponibles en esta categoría',
+      emptyCategoryTitle: 'No hay proyectos disponibles con este filtro',
       emptyCategoryText:
-        'Actualmente no existen proyectos registrados bajo el filtro seleccionado. Prueba seleccionando otra categoría o visualizando todos los proyectos.',
+        'No se encontraron proyectos que coincidan con la búsqueda seleccionada. Prueba limpiando el filtro o visualizando todas las categorías.',
       resetFilter: 'Ver todos los proyectos',
       modal: {
         closeAria: 'Cerrar ventana de proyecto',
@@ -96,10 +97,14 @@ export const translations = {
         printBtn: 'Imprimir / PDF',
         printAria: 'Imprimir o guardar ficha técnica del proyecto en PDF',
         categoryLabel: 'Categoría',
+        clientLabel: 'Mandante / Cliente',
         locationLabel: 'Ubicación',
+        builtSurfaceLabel: 'Superficie construida',
+        exteriorSurfaceLabel: 'Superficie obras exteriores',
         yearLabel: 'Año de ejecución',
         workTypeLabel: 'Tipo de trabajo realizado',
         descriptionLabel: 'Descripción del proyecto',
+        videoSectionLabel: 'Registro audiovisual de la obra',
         galleryLabel: 'Galería de fotografías',
         inquireProject: 'Consultar sobre proyectos similares',
         prevProject: '← Proyecto anterior',
@@ -118,25 +123,28 @@ export const translations = {
       },
     },
     team: {
-      eyebrow: 'Nuestro equipo',
-      title: 'Las personas detrás de cada proyecto.',
+      eyebrow: 'Dirección ejecutiva',
+      title: 'Liderazgo detrás de cada proyecto.',
       subtitle:
-        'En TOCAL combinamos liderazgo técnico, supervisión en terreno y compromiso con la seguridad para responder a los desafíos de cada obra.',
+        'En Constructora TOCAL combinamos dirección estratégica, supervisión directa en terreno y compromiso con los plazos para responder a los desafíos de cada mandante.',
       provisionalBanner:
-        'Espacio preparado para el equipo de TOCAL: las fotografías, nombres y cargos definitivos se incorporarán desde el archivo de datos cuando sean confirmados por el cliente.',
+        'Espacio preparado para el equipo de TOCAL.',
       provisionalBadge: 'Datos por confirmar',
+      emailLabel: 'Correo directo',
+      phoneLabel: 'Teléfono directo',
     },
     contact: {
       eyebrow: 'Contacto corporativo',
       title: 'Conversemos sobre tu próximo proyecto.',
       subtitle:
-        'Estamos disponibles para evaluar requerimientos de construcción e infraestructura en combustibles, plantas industriales y centros comerciales.',
-      directChannelsTitle: 'Canales directos de atención',
+        'Contamos con oficinas en Santiago y Linares para atender proyectos de construcción e infraestructura en combustibles, plantas industriales y centros comerciales.',
+      directChannelsTitle: 'Canales directos y oficinas',
       emailLabel: 'Correo electrónico corporativo',
       emailHint: 'Haz clic para abrir tu cliente de correo',
       whatsappLabel: 'Atención directa por WhatsApp',
       whatsappAction: 'Iniciar conversación en WhatsApp',
       whatsappHint: 'Respuesta ágil en horario hábil',
+      officesTitle: 'Nuestras oficinas',
       officePhoneLabel: 'Teléfono de oficina',
       addressLabel: 'Dirección corporativa',
       specialtyAreasTitle: 'Áreas de atención comercial',
@@ -198,10 +206,11 @@ export const translations = {
     },
     footer: {
       description:
-        'Empresa constructora dedicada a proyectos de infraestructura y obras civiles con foco en combustibles, plantas industriales y centros comerciales.',
+        'Constructora TOCAL Ltda. — Desde 2008 desarrollando proyectos industriales, plantas de proceso, bodegas, estaciones de servicio y equipamiento comercial en todo Chile.',
       navigationTitle: 'Navegación',
       specialtiesTitle: 'Especialidades',
-      contactTitle: 'Contacto directo',
+      contactTitle: 'Contacto y oficinas',
+      rutLabel: 'RUT',
       emailAction: 'Enviar correo electrónico',
       whatsappAction: 'Escribir por WhatsApp',
       backToTop: 'Volver arriba ↑',
@@ -212,7 +221,7 @@ export const translations = {
     meta: {
       title: 'TOCAL | Construction, Civil Works & Infrastructure',
       description:
-        'TOCAL (Constructora Tocal Ltda.) — Construction and infrastructure projects in fuels, industrial plants, and shopping centers.',
+        'TOCAL (Constructora Tocal Ltda.) — Over 15 years delivering construction and infrastructure projects in fuels, industrial plants, and shopping centers across Chile.',
     },
     nav: {
       skipToContent: 'Skip to main content',
@@ -242,8 +251,8 @@ export const translations = {
       featuredLabel: 'Featured Portfolio',
       featuredTitle: 'Featured Projects',
       featuredSubtitle:
-        'Demonstration selection of our main lines of action in infrastructure.',
-      viewAllProjects: 'Explore all projects',
+        'Representative projects executed by TOCAL across industrial plants, service stations, and shopping centers.',
+      viewAllProjects: 'Explore all 22 projects',
       ctaBannerEyebrow: 'Planning an upcoming project?',
       ctaBannerTitle: 'Let’s coordinate a technical meeting with our team.',
       ctaBannerText:
@@ -267,7 +276,7 @@ export const translations = {
       subtitle:
         'We specialize in three main construction and infrastructure sectors, prioritizing operational safety, quality control, and schedule compliance.',
       scopeTitle: 'General work lines',
-      relatedProjectsTitle: 'Related projects',
+      relatedProjectsTitle: 'Executed projects in this area',
       viewCategoryProjects: 'Filter gallery by this area',
       inquireService: 'Inquire about this service',
     },
@@ -278,23 +287,24 @@ export const translations = {
       'shopping-centers': 'Shopping Centers',
     },
     projects: {
-      eyebrow: 'Project Gallery',
+      eyebrow: 'Executed Works Portfolio',
       title: 'Projects & Infrastructure.',
       subtitle:
-        'Select a category to filter the projects or click on any card to inspect its full specification sheet and photo gallery.',
+        'Explore our executed works across processing plants, warehouses, service stations, and commercial/institutional facilities throughout Chile.',
       demoNotice:
-        'Note: Currently displayed projects are referential demonstration records. The data architecture is ready to load TOCAL’s official projects and photographs.',
+        'Note: Currently displayed projects are referential demonstration records.',
       demoBadge: 'Demo record',
+      videoBadge: 'Drone Video',
       filterAria: 'Filter projects by category',
-      searchPlaceholder: 'Search project by name, work type, or keyword...',
+      searchPlaceholder: 'Search by client, city, project name, or work type...',
       searchAria: 'Search projects',
       clearSearch: 'Clear search',
       viewProject: 'View project',
       viewProjectAria: 'View details for project {title}',
       photosCount: '{count} photo | {count} photos',
-      emptyCategoryTitle: 'No projects available in this category',
+      emptyCategoryTitle: 'No projects available under this filter',
       emptyCategoryText:
-        'There are currently no registered projects under the selected filter. Try selecting another category or viewing all projects.',
+        'No projects matched your search criteria. Try clearing the search filter or viewing all categories.',
       resetFilter: 'View all projects',
       modal: {
         closeAria: 'Close project modal',
@@ -305,10 +315,14 @@ export const translations = {
         printBtn: 'Print / PDF',
         printAria: 'Print or save project specification sheet as PDF',
         categoryLabel: 'Category',
+        clientLabel: 'Client',
         locationLabel: 'Location',
+        builtSurfaceLabel: 'Built Surface',
+        exteriorSurfaceLabel: 'Exterior Works Surface',
         yearLabel: 'Execution Year',
         workTypeLabel: 'Work Performed',
         descriptionLabel: 'Project Description',
+        videoSectionLabel: 'Project Video Record',
         galleryLabel: 'Photo Gallery',
         inquireProject: 'Inquire about similar projects',
         prevProject: '← Previous project',
@@ -327,25 +341,28 @@ export const translations = {
       },
     },
     team: {
-      eyebrow: 'Our Team',
-      title: 'The people behind every project.',
+      eyebrow: 'Executive Leadership',
+      title: 'The leadership behind every project.',
       subtitle:
-        'At TOCAL we combine technical leadership, field supervision, and a strong safety culture to meet the challenges of every project.',
+        'At TOCAL Construction we combine strategic direction, direct field supervision, and deadline commitment to meet every client’s challenges.',
       provisionalBanner:
-        'Space prepared for the TOCAL team: final photographs, full names, and positions will be loaded from the data file once confirmed by the client.',
+        'Space prepared for the TOCAL team.',
       provisionalBadge: 'Details pending confirmation',
+      emailLabel: 'Direct Email',
+      phoneLabel: 'Direct Phone',
     },
     contact: {
       eyebrow: 'Corporate Contact',
       title: 'Let’s talk about your next project.',
       subtitle:
-        'We are available to evaluate construction and infrastructure requirements in fuels, industrial plants, and shopping centers.',
-      directChannelsTitle: 'Direct Contact Channels',
+        'With offices in Santiago and Linares, we are ready to evaluate construction and infrastructure requirements in fuels, industrial plants, and shopping centers.',
+      directChannelsTitle: 'Direct Channels & Offices',
       emailLabel: 'Corporate Email',
       emailHint: 'Click to open your email client',
       whatsappLabel: 'Direct WhatsApp Support',
       whatsappAction: 'Start WhatsApp chat',
       whatsappHint: 'Prompt response during business hours',
+      officesTitle: 'Our Offices',
       officePhoneLabel: 'Office Phone',
       addressLabel: 'Corporate Address',
       specialtyAreasTitle: 'Commercial Service Areas',
@@ -407,10 +424,11 @@ export const translations = {
     },
     footer: {
       description:
-        'Construction company dedicated to infrastructure and civil works projects focused on fuels, industrial plants, and shopping centers.',
+        'Constructora TOCAL Ltda. — Since 2008 developing industrial projects, processing plants, warehouses, service stations, and commercial facilities across Chile.',
       navigationTitle: 'Navigation',
       specialtiesTitle: 'Specialties',
-      contactTitle: 'Direct Contact',
+      contactTitle: 'Contact & Offices',
+      rutLabel: 'Tax ID (RUT)',
       emailAction: 'Send corporate email',
       whatsappAction: 'Message on WhatsApp',
       backToTop: 'Back to top ↑',

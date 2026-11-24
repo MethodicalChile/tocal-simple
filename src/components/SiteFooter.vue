@@ -34,6 +34,9 @@ const whatsappUrl = computed(() => getWhatsappUrl(language.value))
             />
           </a>
           <p class="footer-desc">{{ t('footer.description') }}</p>
+          <p v-if="siteConfig.rut" class="footer-rut">
+            {{ siteConfig.legalName }} · {{ t('footer.rutLabel') }}: {{ siteConfig.rut }}
+          </p>
         </div>
 
         <!-- Columna 2: Enlaces a las secciones -->
@@ -85,28 +88,11 @@ const whatsappUrl = computed(() => getWhatsappUrl(language.value))
                 {{ siteConfig.whatsappDisplay }}
               </a>
             </li>
-            <li v-if="siteConfig.officePhone">
-              <span class="footer-contact-label">{{ t('contact.officePhoneLabel') }}</span>
-              <a
-                :href="`tel:${siteConfig.officePhone.replace(/\s+/g, '')}`"
-                class="footer-contact-link"
-              >
-                {{ siteConfig.officePhone }}
-              </a>
-            </li>
-            <li v-if="siteConfig.address">
-              <span class="footer-contact-label">{{ t('contact.addressLabel') }}</span>
-              <span class="footer-contact-text">{{ siteConfig.address }}</span>
-            </li>
-            <li v-if="siteConfig.linkedinUrl">
-              <span class="footer-contact-label">LinkedIn</span>
-              <a
-                :href="siteConfig.linkedinUrl"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="footer-contact-link"
-              >
-                TOCAL LinkedIn ↗
+            <li v-for="office in siteConfig.offices" :key="office.id">
+              <span class="footer-contact-label">{{ office.city }}</span>
+              <span class="footer-contact-text">{{ office.address }}</span>
+              <a :href="`tel:${office.telHref}`" class="footer-contact-link">
+                {{ office.phone }}
               </a>
             </li>
           </ul>
@@ -151,11 +137,18 @@ const whatsappUrl = computed(() => getWhatsappUrl(language.value))
 }
 
 .footer-desc {
-  margin: 0;
+  margin: 0 0 12px;
   font-size: 14px;
   line-height: 1.7;
   max-width: 340px;
   color: rgba(255, 255, 255, 0.65);
+}
+
+.footer-rut {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.5);
 }
 
 .footer-heading {
@@ -174,7 +167,7 @@ const whatsappUrl = computed(() => getWhatsappUrl(language.value))
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
 }
 
 .footer-list a {
@@ -190,18 +183,24 @@ const whatsappUrl = computed(() => getWhatsappUrl(language.value))
 .footer-contact-list li {
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 2px;
 }
 
 .footer-contact-label {
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: rgba(255, 255, 255, 0.45);
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.footer-contact-text {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.68);
 }
 
 .footer-contact-link {
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 700;
   color: var(--white);
   transition: color 0.2s ease;

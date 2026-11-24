@@ -36,18 +36,33 @@ export const siteUrl = (env.VITE_SITE_URL || 'https://www.tocal.cl')
   .trim()
   .replace(/\/+$/, '')
 
-export const officePhone = (env.VITE_OFFICE_PHONE || '').trim()
-export const companyAddress = (env.VITE_COMPANY_ADDRESS || '').trim()
+export const supabaseMediaUrl = (
+  env.VITE_SUPABASE_MEDIA_URL ||
+  'https://chqllbhsgfawmdogbjoy.supabase.co/storage/v1/object/public/tocal-media'
+)
+  .trim()
+  .replace(/\/+$/, '')
+
+export const getSupabaseVideoUrl = (fileName) => {
+  const clean = String(fileName || '').replace(/^\/+/, '')
+  return `${supabaseMediaUrl}/videos/${clean}`
+}
+
+export const officePhone = (env.VITE_OFFICE_PHONE || '02-22474085 / 073-2220473').trim()
+export const companyAddress = (
+  env.VITE_COMPANY_ADDRESS ||
+  'Av. Del Parque 4680-A, Of. 206, Huechuraba – Santiago | Fundo La Granja Lote 10, Oficina B, Linares'
+).trim()
 export const linkedinUrl = (env.VITE_LINKEDIN_URL || '').trim()
 export const contactEndpoint = (env.VITE_CONTACT_ENDPOINT || '').trim()
 
 const rawDefaultLang = (env.VITE_DEFAULT_LANGUAGE || 'es').trim().toLowerCase()
 export const defaultLanguage = ['es', 'en'].includes(rawDefaultLang) ? rawDefaultLang : 'es'
 
-const rawShowProvisional = String(env.VITE_SHOW_PROVISIONAL_BADGES ?? 'true')
+const rawShowProvisional = String(env.VITE_SHOW_PROVISIONAL_BADGES ?? 'false')
   .trim()
   .toLowerCase()
-export const showProvisionalBadges = rawShowProvisional !== 'false' && rawShowProvisional !== '0'
+export const showProvisionalBadges = rawShowProvisional === 'true' || rawShowProvisional === '1'
 
 export const whatsappMessages = {
   es: (
@@ -76,12 +91,30 @@ export const getWhatsappUrl = (language = 'es', customMessage = '') => {
 export const siteConfig = {
   name: 'TOCAL',
   legalName: 'Constructora Tocal Ltda.',
+  rut: '76.022.955-5',
   siteUrl,
+  supabaseMediaUrl,
   email: contactEmail,
   whatsappNumber,
   whatsappDisplay,
   officePhone,
   address: companyAddress,
+  offices: [
+    {
+      id: 'santiago',
+      city: 'Santiago',
+      address: 'Av. Del Parque 4680-A, Of. 206, Huechuraba – Santiago',
+      phone: '02-22474085',
+      telHref: '+56222474085',
+    },
+    {
+      id: 'linares',
+      city: 'Linares',
+      address: 'Fundo La Granja Lote 10, Oficina B, Linares',
+      phone: '073-2220473',
+      telHref: '+56732220473',
+    },
+  ],
   linkedinUrl,
   contactEndpoint,
   defaultLanguage,
@@ -92,9 +125,11 @@ export const siteConfig = {
     dark: '/images/logo-tocal.png',
     mark: '/images/logo-marca.png',
   },
-  // Campos institucionales opcionales: mantener en null/vacío hasta confirmación oficial del cliente.
-  foundedYear: null,
-  yearsOfExperience: null,
+  // Antecedentes institucionales oficiales (Presentación Corporativa TOCAL)
+  foundedYear: 2008,
+  yearsOfExperience: 15,
+  builtSurfaceTotal: '+125.000 m²',
+  projectsExecutedCount: '+40',
   employeesCount: null,
   socialLinks: linkedinUrl ? [{ name: 'LinkedIn', url: linkedinUrl }] : [],
 }

@@ -52,6 +52,7 @@ const filteredProjects = computed(() => {
       localize(project.shortDescription),
       localize(project.description),
       localize(project.workType),
+      project.client || '',
       project.location || '',
     ]
       .join(' ')

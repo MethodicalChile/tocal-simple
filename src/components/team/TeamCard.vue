@@ -35,6 +35,25 @@ const { t, localize } = useI18n()
       <p v-if="localize(member.description)" class="team-card__desc">
         {{ localize(member.description) }}
       </p>
+
+      <div v-if="member.email || member.phone" class="team-card__contact">
+        <a
+          v-if="member.email"
+          :href="`mailto:${member.email}`"
+          class="team-card__contact-link"
+        >
+          <span>✉</span>
+          <span>{{ member.email }}</span>
+        </a>
+        <a
+          v-if="member.phone"
+          :href="`tel:${member.phone.replace(/\s+/g, '')}`"
+          class="team-card__contact-link"
+        >
+          <span>📞</span>
+          <span>{{ member.phone }}</span>
+        </a>
+      </div>
     </div>
   </article>
 </template>
@@ -45,8 +64,8 @@ const { t, localize } = useI18n()
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 200px 1fr;
   height: 100%;
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
@@ -59,8 +78,7 @@ const { t, localize } = useI18n()
 .team-card__media {
   position: relative;
   width: 100%;
-  /* Proporción uniforme 4:5 para fotografías corporativas */
-  aspect-ratio: 4 / 5;
+  min-height: 240px;
   background: var(--dark-2);
   overflow: hidden;
 }
@@ -87,9 +105,10 @@ const { t, localize } = useI18n()
 }
 
 .team-card__body {
-  padding: 22px;
+  padding: 26px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   flex: 1;
 }
 
@@ -103,16 +122,49 @@ const { t, localize } = useI18n()
 }
 
 .team-card__name {
-  font-size: 18px;
-  line-height: 1.3;
+  font-size: 22px;
+  line-height: 1.25;
   margin: 0 0 10px;
   color: var(--fg);
 }
 
 .team-card__desc {
-  margin: 0;
-  font-size: 13px;
+  margin: 0 0 18px;
+  font-size: 14px;
   line-height: 1.65;
   color: var(--fg-2);
+}
+
+.team-card__contact {
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.team-card__contact-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--fg);
+  transition: color 0.2s ease;
+}
+
+.team-card__contact-link:hover {
+  color: var(--accent);
+}
+
+@media (max-width: 640px) {
+  .team-card {
+    grid-template-columns: 1fr;
+  }
+  .team-card__media {
+    aspect-ratio: 4 / 3;
+    min-height: 0;
+  }
 }
 </style>

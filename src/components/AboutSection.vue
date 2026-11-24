@@ -33,13 +33,25 @@ const { t, localize } = useI18n()
         </div>
       </div>
 
+      <!-- Cifras e hitos oficiales de TOCAL -->
+      <div v-if="company.about.stats?.length" class="about-stats-grid">
+        <div
+          v-for="stat in company.about.stats"
+          :key="stat.id"
+          class="about-stat-card"
+        >
+          <strong class="about-stat-card__value">{{ stat.value }}</strong>
+          <span class="about-stat-card__label">{{ localize(stat.label) }}</span>
+        </div>
+      </div>
+
       <!-- Historia, Misión y Visión -->
       <div class="about-statements-grid">
         <article class="statement-card">
           <div class="statement-card__header">
             <h3>{{ localize(company.about.history.title) }}</h3>
             <span
-              v-if="company.about.history.isProvisional && siteConfig.showProvisionalBadges"
+              v-if="company.about.history.badge"
               class="provisional-pill"
             >
               {{ localize(company.about.history.badge) }}
@@ -105,6 +117,30 @@ const { t, localize } = useI18n()
           </article>
         </div>
       </div>
+
+      <!-- Nuestros Clientes -->
+      <div v-if="company.about.clients" class="about-clients">
+        <div class="about-clients__header">
+          <div>
+            <p class="eyebrow">{{ localize(company.about.clients.eyebrow) }}</p>
+            <h3>{{ localize(company.about.clients.title) }}</h3>
+          </div>
+          <p class="about-clients__subtitle">
+            {{ localize(company.about.clients.subtitle) }}
+          </p>
+        </div>
+
+        <div class="about-clients__showcase">
+          <img
+            :src="withBase(company.about.clients.image)"
+            :alt="localize(company.about.clients.imageAlt)"
+            class="about-clients__img"
+            loading="lazy"
+            decoding="async"
+            @error="handleImageError"
+          />
+        </div>
+      </div>
     </div>
   </section>
 </template>
@@ -119,7 +155,7 @@ const { t, localize } = useI18n()
   grid-template-columns: 1.05fr 0.95fr;
   gap: 64px;
   align-items: start;
-  margin-bottom: 56px;
+  margin-bottom: 44px;
 }
 
 .about-intro h2 {
@@ -135,6 +171,38 @@ const { t, localize } = useI18n()
 
 .about-overview p:last-child {
   margin-bottom: 0;
+}
+
+.about-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+  margin-bottom: 48px;
+}
+
+.about-stat-card {
+  background: var(--dark-2);
+  color: var(--white);
+  border-radius: var(--radius-md);
+  padding: 26px 24px;
+  border-left: 4px solid var(--accent);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.about-stat-card__value {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 3.2vw, 40px);
+  font-weight: 800;
+  line-height: 1.05;
+  color: var(--accent);
+}
+
+.about-stat-card__label {
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.85);
 }
 
 .about-statements-grid {
@@ -209,6 +277,10 @@ const { t, localize } = useI18n()
   border-top: 1px solid var(--border);
 }
 
+.about-values {
+  margin-bottom: 64px;
+}
+
 .about-values__header {
   margin-bottom: 28px;
 }
@@ -252,23 +324,68 @@ const { t, localize } = useI18n()
   color: var(--fg-2);
 }
 
+.about-clients {
+  padding-top: 48px;
+  border-top: 1px solid var(--border);
+}
+
+.about-clients__header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  align-items: end;
+  margin-bottom: 28px;
+}
+
+.about-clients__header h3 {
+  font-size: clamp(26px, 3vw, 36px);
+  margin: 0;
+}
+
+.about-clients__subtitle {
+  margin: 0;
+  font-size: 15px;
+  color: var(--fg-2);
+}
+
+.about-clients__showcase {
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  box-shadow: var(--shadow-sm);
+}
+
+.about-clients__img {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
 @media (max-width: 1020px) {
-  .about-top-grid {
+  .about-top-grid,
+  .about-clients__header {
     grid-template-columns: 1fr;
-    gap: 28px;
+    gap: 24px;
+  }
+  .about-stats-grid,
+  .values-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .about-statements-grid {
     grid-template-columns: 1fr;
   }
-  .values-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
 }
 
 @media (max-width: 640px) {
+  .about-stats-grid,
   .about-gallery,
   .values-grid {
     grid-template-columns: 1fr;
+  }
+  .about-clients__showcase {
+    padding: 16px;
   }
 }
 </style>

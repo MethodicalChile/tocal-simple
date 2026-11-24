@@ -2,6 +2,7 @@
 import { ref, computed, watch, nextTick, onBeforeUnmount } from 'vue'
 import { useI18n } from '../../i18n'
 import { siteConfig } from '../../config/site'
+import { withBase } from '../../utils/assets'
 import ProjectCarousel from './ProjectCarousel.vue'
 
 const props = defineProps({
@@ -26,6 +27,7 @@ const modalDialogRef = ref(null)
 const closeButtonRef = ref(null)
 const carouselRef = ref(null)
 const linkCopied = ref(false)
+const activeVideoIdx = ref(0)
 
 const isOpen = computed(() => Boolean(props.project))
 
@@ -41,8 +43,21 @@ const projectDescription = computed(() =>
 const projectWorkType = computed(() =>
   props.project && props.project.workType ? localize(props.project.workType) : ''
 )
+const projectClient = computed(() =>
+  props.project && hasText(props.project.client) ? String(props.project.client).trim() : ''
+)
 const projectLocation = computed(() =>
   props.project && hasText(props.project.location) ? String(props.project.location).trim() : ''
+)
+const projectBuiltSurface = computed(() =>
+  props.project && hasText(props.project.builtSurface)
+    ? String(props.project.builtSurface).trim()
+    : ''
+)
+const projectExteriorSurface = computed(() =>
+  props.project && hasText(props.project.exteriorSurface)
+    ? String(props.project.exteriorSurface).trim()
+    : ''
 )
 const projectYear = computed(() =>
   props.project && hasText(props.project.year) ? String(props.project.year).trim() : ''
@@ -58,6 +73,20 @@ const projectImages = computed(() => {
   }
   return []
 })
+
+const projectVideos = computed(() => {
+  if (!props.project || !Array.isArray(props.project.videos)) return []
+  return props.project.videos.filter((v) => v && v.src)
+})
+
+const activeVideo = computed(() => projectVideos.value[activeVideoIdx.value] || null)
+
+watch(
+  () => props.project?.id,
+  () => {
+    activeVideoIdx.value = 0
+  }
+)
 
 const currentProjectIdx = computed(() => {
   if (!props.project || !Array.isArray(props.projectsList) || props.projectsList.length <= 1) {
@@ -216,6 +245,9 @@ onBeforeUnmount(() => {
             <span class="modal-category">
               {{ t(`categories.${project.category}`) }}
             </span>
+            <span v-if="projectVideos.length" class="provisional-pill">
+              ▶ {{ t('projects.videoBadge') }}
+            </span>
             <span v-if="project.isDemo && siteConfig.showProvisionalBadges" class="provisional-pill">
               {{ t('projects.demoBadge') }}
             </span>
@@ -266,6 +298,41 @@ onBeforeUnmount(() => {
             :project-key="project.id || project.slug"
           />
 
+          <!-- Reproductor de video alojado en Supabase Storage -->
+          <div v-if="projectVideos.length > 0 && activeVideo" class="modal-video-section">
+            <div class="modal-video-header">
+              <h3 class="modal-section-label">
+                ▶ {{ t('projects.modal.videoSectionLabel') }}
+              </h3>
+              <div v-if="projectVideos.length > 1" class="modal-video-tabs">
+                <button
+                  v-for="(vid, vIdx) in projectVideos"
+                  :key="vid.src"
+                  type="button"
+                  :class="['modal-video-tab', { 'modal-video-tab--active': vIdx === activeVideoIdx }]"
+                  @click="activeVideoIdx = vIdx"
+                >
+                  {{ localize(vid.title) }}
+                </button>
+              </div>
+            </div>
+
+            <div class="modal-video-frame">
+              <video
+                :key="activeVideo.src"
+                :src="activeVideo.src"
+                :poster="project.coverImage ? withBase(project.coverImage) : undefined"
+                class="modal-video-player"
+                controls
+                playsinline
+                preload="metadata"
+              ></video>
+            </div>
+            <p v-if="activeVideo.title" class="modal-video-caption">
+              {{ localize(activeVideo.title) }}
+            </p>
+          </div>
+
           <div class="modal-details-grid">
             <div class="modal-description-col">
               <h3 class="modal-section-label">{{ t('projects.modal.descriptionLabel') }}</h3>
@@ -279,10 +346,25 @@ onBeforeUnmount(() => {
                   <dd>{{ t(`categories.${project.category}`) }}</dd>
                 </div>
 
-                <!-- Solo se muestran ubicación, año y tipo de trabajo cuando existen datos reales -->
+                <div v-if="projectClient" class="modal-spec-item">
+                  <dt>{{ t('projects.modal.clientLabel') }}</dt>
+                  <dd>{{ projectClient }}</dd>
+                </div>
+
+                <!-- Solo se muestran ubicación, superficies, año y tipo de trabajo cuando existen datos reales -->
                 <div v-if="projectLocation" class="modal-spec-item">
                   <dt>{{ t('projects.modal.locationLabel') }}</dt>
                   <dd>{{ projectLocation }}</dd>
+                </div>
+
+                <div v-if="projectBuiltSurface" class="modal-spec-item">
+                  <dt>{{ t('projects.modal.builtSurfaceLabel') }}</dt>
+                  <dd>{{ projectBuiltSurface }}</dd>
+                </div>
+
+                <div v-if="projectExteriorSurface" class="modal-spec-item">
+                  <dt>{{ t('projects.modal.exteriorSurfaceLabel') }}</dt>
+                  <dd>{{ projectExteriorSurface }}</dd>
                 </div>
 
                 <div v-if="projectYear" class="modal-spec-item">
@@ -446,6 +528,72 @@ onBeforeUnmount(() => {
   line-height: 1.2;
   margin: 0 0 22px;
   color: var(--fg);
+}
+
+.modal-video-section {
+  margin-top: 28px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+}
+
+.modal-video-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.modal-video-header .modal-section-label {
+  margin: 0;
+  color: var(--accent);
+  font-weight: 800;
+}
+
+.modal-video-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.modal-video-tab {
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--canvas);
+  color: var(--fg-2);
+  font-size: 12px;
+  font-weight: 700;
+  transition: all 0.2s ease;
+}
+
+.modal-video-tab--active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #111827;
+}
+
+.modal-video-frame {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #0c1118;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.modal-video-player {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+}
+
+.modal-video-caption {
+  margin: 8px 0 0;
+  font-size: 12px;
+  color: var(--fg-muted);
 }
 
 .modal-details-grid {

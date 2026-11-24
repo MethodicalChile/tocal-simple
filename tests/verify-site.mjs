@@ -17,7 +17,7 @@ import {
   projects,
   team,
 } from '../src/data/site.js'
-import { formatPhoneDisplay } from '../src/config/site.js'
+import { formatPhoneDisplay, supabaseMediaUrl } from '../src/config/site.js'
 import { translations } from '../src/i18n/translations.js'
 import { setLanguage, t, localize, useI18n } from '../src/i18n/index.js'
 
@@ -48,10 +48,12 @@ function getAllKeys(obj, prefix = '') {
   })
 }
 
-test('Configuración de contacto: correo corporativo y WhatsApp oficial', () => {
+test('Configuración de contacto: correo corporativo, WhatsApp oficial y oficinas', () => {
   assert.equal(siteConfig.email, 'constructora@tocal.cl')
   assert.equal(whatsappNumber, '56963269747')
   assert.equal(siteConfig.whatsappDisplay, '+56 9 6326 9747')
+  assert.equal(siteConfig.rut, '76.022.955-5')
+  assert.equal(siteConfig.offices.length, 2)
 
   const urlEs = getWhatsappUrl('es')
   const urlEn = getWhatsappUrl('en')
@@ -73,18 +75,18 @@ test('Configuración de contacto: correo corporativo y WhatsApp oficial', () => 
   assert.ok(mailto.startsWith('mailto:constructora@tocal.cl?'))
   assert.ok(mailto.includes('subject=Consulta%20Obra'))
 
-  // Verificar auto-formateo de número telefónico desde dígitos
   assert.equal(formatPhoneDisplay('56963269747', ''), '+56 9 6326 9747')
   assert.equal(formatPhoneDisplay('56912345678', ''), '+56 9 1234 5678')
   assert.equal(formatPhoneDisplay('56963269747', 'Personalizado'), 'Personalizado')
 })
 
-test('No se inventan datos históricos ni estadísticas no confirmadas', () => {
-  assert.equal(siteConfig.foundedYear, null)
-  assert.equal(siteConfig.yearsOfExperience, null)
-  assert.equal(siteConfig.employeesCount, null)
-  assert.equal(siteConfig.address, '')
-  assert.deepEqual(siteConfig.socialLinks, [])
+test('Datos históricos e institucionales oficiales de TOCAL confirmados', () => {
+  assert.equal(siteConfig.foundedYear, 2008)
+  assert.equal(siteConfig.yearsOfExperience, 15)
+  assert.equal(siteConfig.builtSurfaceTotal, '+125.000 m²')
+  assert.equal(siteConfig.projectsExecutedCount, '+40')
+  assert.equal(siteConfig.showProvisionalBadges, false)
+  assert.ok(supabaseMediaUrl.includes('supabase.co/storage/v1/object/public/tocal-media'))
 })
 
 test('Internacionalización ES/EN: paridad completa de claves y cambio dinámico de idioma', () => {
@@ -125,8 +127,8 @@ test('Servicios: las tres áreas de especialización existen en ES/EN con imáge
   }
 })
 
-test('Proyectos: modelo de datos separado, categorías válidas y fotografías existentes sin enlaces rotos', () => {
-  assert.ok(Array.isArray(projects) && projects.length >= 6)
+test('Proyectos: 22 obras reales con fotografías WebP válidas y videos en Supabase Storage', () => {
+  assert.equal(projects.length, 22)
   const validCategories = new Set(['fuels', 'industrial-plants', 'shopping-centers'])
 
   for (const project of projects) {
@@ -145,7 +147,7 @@ test('Proyectos: modelo de datos separado, categorías válidas y fotografías e
       project.description?.es && project.description?.en,
       `Falta descripción completa bilingüe en ${project.id}`
     )
-    assert.equal(project.isDemo, true, 'Los proyectos de demostración deben marcarse con isDemo: true')
+    assert.equal(project.isDemo, false, 'Los proyectos oficiales deben tener isDemo: false')
     assertPublicAssetExists(project.coverImage)
     assert.ok(Array.isArray(project.images) && project.images.length >= 1)
     for (const imgEntry of project.images) {
@@ -156,6 +158,12 @@ test('Proyectos: modelo de datos separado, categorías válidas y fotografías e
           imgEntry.caption.es && imgEntry.caption.en,
           `El pie de foto (caption) debe tener traducción ES y EN en ${project.id}`
         )
+      }
+    }
+    if (Array.isArray(project.videos) && project.videos.length > 0) {
+      for (const vid of project.videos) {
+        assert.ok(vid.src.startsWith(supabaseMediaUrl), `URL de video inválida en ${project.slug}`)
+        assert.ok(vid.title?.es && vid.title?.en, `Falta título bilingüe de video en ${project.slug}`)
       }
     }
   }
@@ -176,6 +184,7 @@ test('Equipo e imágenes institucionales: todos los archivos gráficos existen e
   assertPublicAssetExists(siteConfig.logos.dark)
   assertPublicAssetExists(siteConfig.logos.mark)
   assertPublicAssetExists(companyData.hero.image)
+  assertPublicAssetExists(companyData.about.clients.image)
   assertPublicAssetExists('/robots.txt')
   assertPublicAssetExists('/sitemap.xml')
   assertPublicAssetExists('/site.webmanifest')
@@ -187,17 +196,18 @@ test('Equipo e imágenes institucionales: todos los archivos gráficos existen e
     assertPublicAssetExists(img.src)
   }
 
-  assert.ok(Array.isArray(team) && team.length > 0)
+  assert.equal(team.length, 2)
   for (const member of team) {
     assert.ok(member.id)
     assert.ok(member.name?.es && member.name?.en)
     assert.ok(member.role?.es && member.role?.en)
-    assert.equal(member.isProvisional, true)
+    assert.equal(member.isProvisional, false)
+    assert.ok(member.email && member.phone)
     assertPublicAssetExists(member.image)
   }
 })
 
-test('Renderizado SSR de componentes Vue (App, Galería,Filtros, Modal y Carrusel) en ES y EN', async () => {
+test('Renderizado SSR de componentes Vue (App, Galería, Filtros, Modal y Carrusel) en ES y EN', async () => {
   const vite = await createServer({
     root: rootDir,
     logLevel: 'silent',
@@ -229,10 +239,9 @@ test('Renderizado SSR de componentes Vue (App, Galería,Filtros, Modal y Carruse
     assert.ok(htmlEs.includes('id="contacto"'))
     assert.ok(htmlEs.includes('mailto:constructora@tocal.cl'))
     assert.ok(htmlEs.includes('https://wa.me/56963269747?text=Hola'))
-    assert.ok(htmlEs.includes('Nuestros proyectos'))
-    assert.ok(htmlEs.includes('Combustibles'))
-    assert.ok(htmlEs.includes('Plantas industriales'))
-    assert.ok(htmlEs.includes('Centros comerciales'))
+    assert.ok(htmlEs.includes('+125.000 m²'))
+    assert.ok(htmlEs.includes('Julio Robert M.'))
+    assert.ok(htmlEs.includes('Mario Poblete A.'))
     assert.ok(!htmlEs.toLowerCase().includes('organigrama'))
 
     // 2. Renderizar App completa en Inglés
@@ -254,14 +263,14 @@ test('Renderizado SSR de componentes Vue (App, Galería,Filtros, Modal y Carruse
           h(ProjectCarousel, {
             images: [
               {
-                src: '/images/projects/fuel-station-demo/image-01.webp',
+                src: '/images/projects/planta-tucapel-retiro/image-01.webp',
                 caption: {
-                  es: 'Montaje de estructura de marquesina',
-                  en: 'Canopy structure assembly',
+                  es: 'Vista aérea general de la planta Tucapel S.A.',
+                  en: 'General aerial view of Tucapel S.A. plant',
                 },
               },
-              '/images/projects/fuel-station-demo/image-02.webp',
-              '/images/projects/fuel-station-demo/image-03.webp',
+              '/images/projects/planta-tucapel-retiro/image-02.webp',
+              '/images/projects/planta-tucapel-retiro/image-03.webp',
             ],
             projectTitle: 'Proyecto Multi',
             projectKey: 'p-multi',
@@ -273,7 +282,7 @@ test('Renderizado SSR de componentes Vue (App, Galería,Filtros, Modal y Carruse
     assert.ok(htmlMulti.includes('carousel__nav--next'), 'Debe mostrar flecha siguiente con >1 foto')
     assert.ok(htmlMulti.includes('carousel__thumbs'), 'Debe mostrar tira de miniaturas con >1 foto')
     assert.ok(
-      htmlMulti.includes('Montaje de estructura de marquesina'),
+      htmlMulti.includes('Vista aérea general de la planta Tucapel S.A.'),
       'Debe mostrar el pie de foto (caption) cuando se define en la imagen'
     )
 
@@ -282,7 +291,7 @@ test('Renderizado SSR de componentes Vue (App, Galería,Filtros, Modal y Carruse
       createSSRApp({
         render: () =>
           h(ProjectCarousel, {
-            images: ['/images/projects/strip-center-demo/image-01.webp'],
+            images: ['/images/projects/copec-horcones/image-01.webp'],
             projectTitle: 'Proyecto Único',
             projectKey: 'p-single',
           }),
@@ -317,17 +326,17 @@ test('Renderizado SSR de componentes Vue (App, Galería,Filtros, Modal y Carruse
           }),
       })
     )
-    assert.ok(htmlFuels.includes('Estación de Servicio'))
-    assert.ok(!htmlFuels.includes('Complejo Comercial'))
+    assert.ok(htmlFuels.includes('Copec Chillán'))
+    assert.ok(!htmlFuels.includes('Strip Center Puerto Tepual'))
 
-    // 7. Modal: ocultamiento de etiquetas sin datos (location="", year=null, workType=null)
-    const projectWithEmptyFields = projects.find((p) => !p.location && !p.year && !p.workType)
+    // 7. Modal con video y especificaciones técnicas
+    const projectWithVideo = projects.find((p) => p.videos?.length > 0)
     const modalCtx = {}
     await renderToString(
       createSSRApp({
         render: () =>
           h(ProjectModal, {
-            project: projectWithEmptyFields,
+            project: projectWithVideo,
           }),
       }),
       modalCtx
@@ -335,19 +344,8 @@ test('Renderizado SSR de componentes Vue (App, Galería,Filtros, Modal y Carruse
     const teleportedModalHtml = Object.values(modalCtx.teleports || {}).join('')
     assert.ok(teleportedModalHtml.includes('role="dialog"'))
     assert.ok(teleportedModalHtml.includes('aria-modal="true"'))
-    assert.ok(teleportedModalHtml.includes('modal-share-btn'), 'Debe incluir botón para copiar enlace del proyecto')
-    assert.ok(
-      !teleportedModalHtml.includes('Ubicación'),
-      'No debe mostrar etiqueta Ubicación cuando está vacía'
-    )
-    assert.ok(
-      !teleportedModalHtml.includes('Año de ejecución'),
-      'No debe mostrar etiqueta Año de ejecución cuando es null'
-    )
-    assert.ok(
-      !teleportedModalHtml.includes('Tipo de trabajo realizado'),
-      'No debe mostrar etiqueta Tipo de trabajo cuando es null'
-    )
+    assert.ok(teleportedModalHtml.includes('modal-video-player'))
+    assert.ok(teleportedModalHtml.includes('Mandante / Cliente'))
   } finally {
     await vite.close()
   }

@@ -63,20 +63,22 @@ const { t } = useI18n()
   color: var(--fg-2);
 }
 
-/* Distribución adaptable al número de integrantes */
 .team-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(255px, 1fr));
-  gap: 24px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px;
+}
+
+@media (max-width: 960px) {
+  .team-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 640px) {
   .team-provisional-banner {
     flex-direction: column;
     align-items: flex-start;
-  }
-  .team-grid {
-    grid-template-columns: 1fr;
   }
 }
 </style>
