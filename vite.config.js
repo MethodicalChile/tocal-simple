@@ -3,8 +3,8 @@ import vue from '@vitejs/plugin-vue'
 
 export default defineConfig({
   plugins: [vue()],
-  // GitHub Pages sirve el sitio en /tocal-simple/ (ver .github/workflows/static.yml).
-  base: process.env.VITE_BASE ?? '/overview/',
+  // En Cloudflare Pages o local sirve en '/' por defecto; GitHub Pages define VITE_BASE='/tocal-simple/'
+  base: process.env.VITE_BASE ?? '/',
   server: {
     allowedHosts: true,
   },
