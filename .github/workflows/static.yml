@@ -1,9 +1,16 @@
 name: Deploy Tocal to GitHub Pages
 
+# Publica dos versiones en el mismo sitio:
+#   main -> https://methodicalchile.github.io/tocal-simple/
+#   dev  -> https://methodicalchile.github.io/tocal-simple/propuesta-2/
+# Este archivo debe ser igual en main y en dev: cualquiera de las dos ramas
+# que reciba un push reconstruye ambas versiones.
+
 on:
   push:
     branches:
       - main
+      - dev
 
   workflow_dispatch:
 
@@ -21,22 +28,44 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout main
         uses: actions/checkout@v4
+        with:
+          ref: main
+          path: main
+
+      - name: Checkout dev
+        uses: actions/checkout@v4
+        with:
+          ref: dev
+          path: dev
 
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
+          cache-dependency-path: |
+            main/package-lock.json
+            dev/package-lock.json
 
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build
-        run: npm run build
+      - name: Build main
+        working-directory: main
+        run: npm ci && npm run build
         env:
           VITE_BASE: /tocal-simple/
+
+      - name: Build dev (propuesta 2)
+        working-directory: dev
+        run: npm ci && npm run build
+        env:
+          VITE_BASE: /tocal-simple/propuesta-2/
+
+      - name: Combine sites
+        run: |
+          mkdir -p site/propuesta-2
+          cp -r main/dist/. site/
+          cp -r dev/dist/. site/propuesta-2/
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
@@ -44,7 +73,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist
+          path: ./site
 
   deploy:
     environment:
