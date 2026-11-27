@@ -1,54 +1,41 @@
 <script setup>
-import { ref } from 'vue'
+import { nextTick, ref } from 'vue'
 import SiteHeader from './components/SiteHeader.vue'
-import HeroSection from './components/HeroSection.vue'
-import AboutSection from './components/AboutSection.vue'
-import StatsSection from './components/StatsSection.vue'
-import ServicesSection from './components/ServicesSection.vue'
-import ProjectsSection from './components/ProjectsSection.vue'
-import ContactSection from './components/ContactSection.vue'
+import HeroVideo from './components/HeroVideo.vue'
+import Mandantes from './components/Mandantes.vue'
+import MapaObras from './components/MapaObras.vue'
+import Portafolio from './components/Portafolio.vue'
+import Especialidades from './components/Especialidades.vue'
+import Empresa from './components/Empresa.vue'
+import Contacto from './components/Contacto.vue'
 import SiteFooter from './components/SiteFooter.vue'
-import { company, projects, projectCategories, services, stats } from './data/site'
+import ObraModal from './components/ObraModal.vue'
 
-const selectedCategory = ref('all')
+const sector = ref('todas')
+const fichaId = ref(null)
+const modal = ref({ obra: null, inicio: 0 })
 
-function handleSelectServiceCategory(categoryId) {
-  const mapped = categoryId === 'warehouses' ? 'industrial-plants' : categoryId
-  selectedCategory.value = mapped
-  const el = document.getElementById('proyectos')
-  if (el) {
-    el.scrollIntoView({ behavior: 'smooth' })
-  }
-}
+const abrir = (obra, inicio = 0) => { modal.value = { obra, inicio } }
 
-function handleOpenDroneVideos() {
-  selectedCategory.value = 'with-video'
-  const el = document.getElementById('proyectos')
-  if (el) {
-    el.scrollIntoView({ behavior: 'smooth' })
-  }
+// desde el hero: lleva a la ficha de la obra que estaba en pantalla
+async function verFicha(id) {
+  fichaId.value = id
+  await nextTick()
+  document.getElementById('fichas')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
 }
 </script>
 
 <template>
-  <SiteHeader :company="company" />
+  <SiteHeader />
   <main>
-    <HeroSection
-      :company="company"
-      @open-videos="handleOpenDroneVideos"
-    />
-    <StatsSection :stats="stats" />
-    <AboutSection :company="company" />
-    <ServicesSection
-      :services="services"
-      @select-category="handleSelectServiceCategory"
-    />
-    <ProjectsSection
-      :projects="projects"
-      :categories="projectCategories"
-      v-model:selected-category="selectedCategory"
-    />
-    <ContactSection :company="company" />
+    <HeroVideo @ver-obra="verFicha" />
+    <Mandantes />
+    <MapaObras v-model:sector="sector" @abrir="abrir" />
+    <Portafolio v-model:actual="fichaId" @ampliar="abrir" />
+    <Especialidades @filtrar="sector = $event" />
+    <Empresa />
+    <Contacto />
   </main>
-  <SiteFooter :company="company" />
+  <SiteFooter />
+  <ObraModal :obra="modal.obra" :inicio="modal.inicio" @cerrar="modal = { obra: null, inicio: 0 }" />
 </template>

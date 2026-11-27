@@ -1,16 +1,18 @@
 name: Deploy Tocal to GitHub Pages
 
-# Publica dos versiones en el mismo sitio:
-#   main -> https://methodicalchile.github.io/tocal-simple/
-#   dev  -> https://methodicalchile.github.io/tocal-simple/propuesta-2/
-# Este archivo debe ser igual en main y en dev: cualquiera de las dos ramas
-# que reciba un push reconstruye ambas versiones.
+# Publica tres versiones en el mismo sitio:
+#   main        -> https://methodicalchile.github.io/tocal-simple/
+#   dev         -> https://methodicalchile.github.io/tocal-simple/propuesta-2/
+#   propuesta-3 -> https://methodicalchile.github.io/tocal-simple/propuesta-3/
+# Este archivo debe ser igual en las tres ramas: cualquiera que reciba un push
+# reconstruye las tres versiones.
 
 on:
   push:
     branches:
       - main
       - dev
+      - propuesta-3
 
   workflow_dispatch:
 
@@ -40,6 +42,12 @@ jobs:
           ref: dev
           path: dev
 
+      - name: Checkout propuesta-3
+        uses: actions/checkout@v4
+        with:
+          ref: propuesta-3
+          path: propuesta-3
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
@@ -48,6 +56,7 @@ jobs:
           cache-dependency-path: |
             main/package-lock.json
             dev/package-lock.json
+            propuesta-3/package-lock.json
 
       - name: Build main
         working-directory: main
@@ -61,11 +70,18 @@ jobs:
         env:
           VITE_BASE: /tocal-simple/propuesta-2/
 
+      - name: Build propuesta 3
+        working-directory: propuesta-3
+        run: npm ci && npm run build
+        env:
+          VITE_BASE: /tocal-simple/propuesta-3/
+
       - name: Combine sites
         run: |
-          mkdir -p site/propuesta-2
+          mkdir -p site/propuesta-2 site/propuesta-3
           cp -r main/dist/. site/
           cp -r dev/dist/. site/propuesta-2/
+          cp -r propuesta-3/dist/. site/propuesta-3/
 
       - name: Setup Pages
         uses: actions/configure-pages@v5

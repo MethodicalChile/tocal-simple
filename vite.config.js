@@ -3,9 +3,10 @@ import vue from '@vitejs/plugin-vue'
 
 export default defineConfig({
   plugins: [vue()],
-  // En Cloudflare Pages o local sirve en '/' por defecto; GitHub Pages define VITE_BASE='/tocal-simple/'
+  // '/' en Cloudflare Pages o dominio propio; GitHub Pages usa VITE_BASE=/<repo>/
   base: process.env.VITE_BASE ?? '/',
-  server: {
-    allowedHosts: true,
+  server: { allowedHosts: true },
+  build: {
+    chunkSizeWarningLimit: 1200, // MapLibre (~1 MB) se carga aparte y solo al acercarse al mapa
   },
 })
